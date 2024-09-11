@@ -58,10 +58,52 @@ int main(){
     getch();    
     return 0;
 }
-*/
 
 //Ejercicio 2
 int main(){
+    int numero,cont=0;
+
+    do{
+        cout<<"Digita un numero: ";cin>>numero;
+        
+        if(numero>0){
+            cont++;
+        }
+
+    }while(numero!=0);
+
+    cout<<"EL numero de numeros mayores a 0 es: "<<cont<<endl;
+
+    return 0;
+}
+
+//Ejercicio 3
+int main(){
+    int cuadrado=0, suma=0;
+
+    for(int i=1; i<=10; i++){
+        cuadrado=i*i;
+        suma+=cuadrado;
+    }
+    cout<<"La suma de los 10 primeros cuadrados sera:"<<suma<<endl;
+
+    return 0;
+}
+*/
+
+//Ejercicio 4
+int main(){
+    float temperatura,mayor=0,menor=9999999;
+    float sumaT;
+
+    for(int i=0, i<24, i+=4){
+        cout>>"Digite la temperatura de la hora"<<i<<"i"<<endl;
+        cin>>temperatura;
+
+        sumaT+=temperatura;
+    }
+
+
 
     return 0;
 }
