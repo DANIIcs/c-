@@ -255,25 +255,67 @@ int main(){
 
     return 0;
 }
-*/
 
 //Ejercicio 13
 int main(){
-    int n, sumap=0,suman=0,sumaT=0;
+    int n, x=0, y=1,z=1;
 
     cout<<"Digite el numero de elemento: ";cin>>n;
+    cout<<"1 ";
 
-    for( int i=1; i<=n; i+=1){
-        if(i%2==0){
-            suman+=i;
-        }
-        else{
-            sumap+=i;
-        } 
+    for( int i=1; i<n; i+=1){
+        z= x+y;
+        cout<<z<<" ";
+        x=y;
+        y=z;
     }
-    sumaT=sumap-suman;
 
-    cout<<"La suma es:"<<sumaT<<endl;
+    return 0;
+}
+
+//Ejercicio 14
+int main(){
+    float ex1, ex2, ex3;
+    int aproT = 0, aproU = 0, apro1=0;
+
+    for(int i=1; i<=5; i++){
+        cout<<i<<". Digite la nota del primer examen: ";cin>>ex1;
+        cout<<i<<". Digite la nota del segundo examen: ";cin>>ex2;
+        cout<<i<<". Digire la nota del tercer examen: ";cin>>ex3;
+        cout<<"\n";
+
+        if((ex1>=10.5) && (ex2>=10.5) && (ex3>=10.5)){
+            aproT++;
+        }
+        if((ex1>=10.5) || (ex2>=10.5) || (ex3>=10.5)){
+            aproU++;
+        }
+        if((ex1<10.5) && (ex2<10.5) && (ex3>=10.5)){
+            apro1++;
+        }
+    }
+    cout<<"Alumnos que aprobaron todos los examenes: "<<aproT<<endl;
+    cout<<"Alumnos que aprobaron al menos un examen: "<<aproU<<endl;
+    cout<<"Alumnos que solo aprobaron el ultimo examen: "<<apro1<<endl;
+
+
+    return 0;
+}
+*/
+
+//Ejercicio 15
+int main(){
+    int n, x=0, y=1,z=1;
+
+    cout<<"Digite el numero de elemento: ";cin>>n;
+    cout<<"1 ";
+
+    for( int i=1; i<n; i+=1){
+        z= x+y;
+        cout<<z<<" ";
+        x=y;
+        y=z;
+    }
 
     return 0;
 }
