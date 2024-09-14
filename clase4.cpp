@@ -301,21 +301,46 @@ int main(){
 
     return 0;
 }
-*/
 
 //Ejercicio 15
+#include <time.h>
 int main(){
-    int n, x=0, y=1,z=1;
+    int numero, dato, contador=0;
 
-    cout<<"Digite el numero de elemento: ";cin>>n;
-    cout<<"1 ";
+    srand(time(NULL));//Genera un numero aleatorio
+    dato = 1 + rand()%(100);
 
-    for( int i=1; i<n; i+=1){
-        z= x+y;
-        cout<<z<<" ";
-        x=y;
-        y=z;
+    do
+    {
+        cout<<"Digite un numero: ";cin>>numero;
+        if(numero>dato){
+            cout<<"\nDigite un numero menor\n";
+        }
+        if(numero<dato){
+            cout<<"\nDigite un numero mayor\n";
+        }
+        contador++;
+    } while (numero!=dato);
+    
+    cout<<"FELICIDADES ADIVINASTE EL NUMERO"<<endl;
+    cout<<"Numero de intentos: "<<contador<<endl;
+    
+    return 0;
+}
+*/
+
+//Ejercicio 16
+int main(){
+    int numero;
+
+    cout<<"Digite un numero: ";cin>>numero;
+
+    for(int i=2;numero>1;i++){
+        while(numero%i==0){
+            cout<<i<<" ";
+            numero/=i;
+        }
     }
-
+    
     return 0;
 }
