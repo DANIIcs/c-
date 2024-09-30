@@ -35,16 +35,24 @@ struct Nodo{
     int dato;
     Nodo *der;
     Nodo *izq;
+    Nodo *padre; //Es para que cada nodo sepa quien es su padre
 };
 
 //Prototipos
 void menu();
-Nodo *crearNodo(int);
-void insertarNodo(Nodo *&, int);
+Nodo *crearNodo(int, Nodo *);
+void insertarNodo(Nodo *&, int ,Nodo *);
 void mostrarArbol(Nodo *, int);
 bool busqueda(Nodo *,int);
 Nodo *arbol= NULL;
-
+void preOrden(Nodo *);
+void inOrden(Nodo *);
+void postOrden(Nodo *);
+void eliminar(Nodo *, int);
+void eliminarNodo(Nodo *);
+Nodo *minimo(Nodo *);
+void reemplazar(Nodo *, Nodo *);
+void destruirNodo(Nodo *);
 
 int main(){
     menu();
@@ -63,12 +71,16 @@ void menu(){
         cout<<"1. Insertar un nuevo nodo"<<endl;
         cout<<"2. Mostrar el arbol completo"<<endl;
         cout<<"3. Buscar un elemento en el arbol"<<endl;
-        cout<<"4. Salir"<<endl;
+        cout<<"4. Recorrer el arbol en preOrden"<<endl;
+        cout<<"5. Recorrer el arbol en inOrden"<<endl;
+        cout<<"6. Recorrer el arbol en inOrden"<<endl;
+        cout<<"7. Eliminar un nodo del arbol"<<endl;        
+        cout<<"8. Salir"<<endl;
         cout<<"Opcion: ";cin>>opcion;
 
         switch (opcion){
             case 1: cout<<"Digita un nuemero: ";cin>>dato;
-                    insertarNodo(arbol,dato);//Insertamos un nuevo nodo
+                    insertarNodo(arbol,dato, NULL);//Insertamos un nuevo nodo
                     cout<<"\n";
                     system("pause");
                     break;
@@ -88,35 +100,56 @@ void menu(){
                     cout<<"\n";
                     system("pause");
                     break;
+            case 4: cout<<"\nRecorrido en preOrden:\n\n";
+                    preOrden(arbol);
+                    cout<<"\n\n";
+                    system("pause");
+                    break;
+            case 5: cout<<"\nRecorrido en inOrden:\n\n";
+                    inOrden(arbol);
+                    cout<<"\n\n";
+                    system("pause");
+                    break;
+            case 6: cout<<"\nRecorrido en postOrden:\n\n";
+                    postOrden(arbol);
+                    cout<<"\n\n";
+                    system("pause");
+                    break;
+            case 7: cout<<"\nDigite el nodo que quiera eliminar: ";cin>>dato;
+                    eliminar(arbol,dato);
+                    cout<<"\n";
+                    system("pause");
+                    break;
         }
         system("cls");
-    }while(opcion !=4 );
+    }while(opcion !=8 );
 }
 
 //Funcion para crear un Nodo
-Nodo *crearNodo(int n){
+Nodo *crearNodo(int n, Nodo *padre){
     Nodo *nuevo_nodo=new Nodo();
 
     nuevo_nodo->dato=n;
     nuevo_nodo->der=NULL;
     nuevo_nodo->izq=NULL;
+    nuevo_nodo->padre=padre;
 
     return nuevo_nodo;
 }
 
 //Funcion para insertar elementos en el arbol
-void insertarNodo(Nodo *&arbol, int n){
+void insertarNodo(Nodo *&arbol, int n, Nodo *padre){
     if(arbol==NULL){//si arbol esta vacio cramos un nuevo nodo
-        Nodo *nuevo_nodo= crearNodo(n);
+        Nodo *nuevo_nodo= crearNodo(n,padre);
         arbol=nuevo_nodo;
     }
     else{//Si esque el arbol tiene un nodo o mas
         int valorRaiz = arbol->dato;//Obtenemos el valor de la raiz
         if( n< valorRaiz){//si el elemnto es menor a la raiz, insertamos en la izq
-            insertarNodo(arbol->izq,n);
+            insertarNodo(arbol->izq, n, arbol);
         }
         else{//si el elemnto es mayor a la raiz, insertamos en la der
-            insertarNodo(arbol->der,n);
+            insertarNodo(arbol->der, n, arbol);
         }
     }
 }
@@ -150,4 +183,116 @@ bool busqueda(Nodo *arbol, int n){
     else{
         return busqueda(arbol->der,n);
     }  
+}
+
+// Para el recorrido preOrden se refiere a primero recorrer la raiz despues la parte izquiera del arbol y por ultimo el lado derecho
+void preOrden(Nodo *arbol){
+    if(arbol==NULL){ //si el arbol esta vacio
+        return;
+    }
+    else{
+        cout<<arbol->dato<<" - ";
+        preOrden(arbol->izq);
+        preOrden(arbol->der);
+    }
+}
+
+// Para el recorrido inOrden se refiere a primero recorrer la parte izquiera del arbol luego recorrer la raiz y por ultimo el lado derecho
+void inOrden(Nodo *arbol){
+    if(arbol==NULL){ //si el arbol esta vacio
+        return;
+    }
+    else{
+        inOrden(arbol->izq);
+        cout<<arbol->dato<<" - ";
+        inOrden(arbol->der);
+    }
+}
+
+// Para el recorrido postOrden se refiere a primero recorrer la parte izquiera del arbol luego recorrer la parte derecha y por ultimo la raiz
+void postOrden(Nodo *arbol){
+    if(arbol==NULL){ //si el arbol esta vacio
+        return;
+    }
+    else{
+        postOrden(arbol->izq);
+        postOrden(arbol->der);
+        cout<<arbol->dato<<" - ";
+
+    }
+}
+
+//Eliminar un nodo del arbol
+void eliminar(Nodo *arbol, int n){
+    if(arbol==NULL){ //si el arbol esta vacio
+        return;
+    }
+    else if(n < arbol->dato){ // si el valor es menor
+        eliminar(arbol->izq, n); //busca por la izq
+    }
+    else if(n > arbol->dato){ // si el valor es mayor
+        eliminar(arbol->der, n); //busca por la der
+    }
+    else{// si ya se econtro el valor
+        eliminarNodo(arbol);
+    }
+}
+
+//funcion para determinar el nodo mas izquierdo posible
+Nodo *minimo(Nodo *arbol){
+    if(arbol==NULL){ //si el arbol esta vacio
+        return NULL;
+    }
+    if(arbol->izq){
+        return minimo(arbol->izq); //Buscamos la parte mas izquiera posible
+    }
+    else{//Si no tiene hijo izq
+        return arbol; //retornamos el mimso nodo
+    }
+}
+
+//Funcion para reemplazar dos nodos
+void reemplazar(Nodo *arbol, Nodo *nuevoNodo){
+    if(arbol->padre){
+        //arbol->padre hay que asignarle su nuevo hijo
+        if( arbol->dato == arbol->padre->izq->dato){
+            arbol->padre->izq = nuevoNodo;
+        }
+        else if(arbol->dato == arbol->padre->der->dato){
+            arbol->padre->der = nuevoNodo;
+        }
+    }
+    if(nuevoNodo){
+        //le asignamos su nuevo padre
+        nuevoNodo->padre = arbol->padre;
+    }
+}
+
+//funcion para destruir un nodo
+void destruirNodo(Nodo *nodo){
+    nodo->izq=NULL;
+    nodo->der=NULL;
+
+    delete nodo;
+}
+
+//funcion para eliminar el nodo encontrado
+void eliminarNodo(Nodo *nodoeliminar){
+    if( nodoeliminar->izq && nodoeliminar->der){//Si el nodo tiene hijo izq y der
+        Nodo *menor = minimo(nodoeliminar->der);
+        nodoeliminar->dato = menor->dato;
+        eliminarNodo(menor);
+    }
+    else if(nodoeliminar->izq){ // si tiene hijo izq
+        reemplazar(nodoeliminar, nodoeliminar->izq);
+        destruirNodo(nodoeliminar);
+    }
+    else if(nodoeliminar->der){ // si tiene hijo der
+        reemplazar(nodoeliminar, nodoeliminar->der);
+        destruirNodo(nodoeliminar);
+    }
+    else{ //No tiene hijos
+        reemplazar(nodoeliminar,NULL);
+        destruirNodo(nodoeliminar);
+    }
 }
