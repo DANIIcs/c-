@@ -302,5 +302,42 @@ void mostrarArray(int *elemento, int nElementos){
 
 // ejercicio 7 pedir su nombre al usuario y devolver el numero de vocales que hay
 #include <stdlib.h>
+#include <cstring> // Para strupr()
 
+void pedirDatos();
+int contandoVocales(char *);
 
+char nombreUsuario[30];
+
+int main(){
+
+    pedirDatos();
+    cout<<"El numero de vocales del nombre es: "<<contandoVocales(nombreUsuario)<<endl;
+// nombreUsuario = &nombreUsuario[0]
+    getch();
+    return 0;
+}
+
+void pedirDatos(){
+
+    cout<<"Digite su nombre: ";
+    cin.getline(nombreUsuario,30);
+
+    strupr(nombreUsuario);//transformando a a mayuscula el nombre
+}
+
+int contandoVocales(char *nombre){
+    int cont=0;
+
+    while(*nombre){//mientras nombre no sea nulo '\0' 
+        switch (*nombre){
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'O':
+            case 'U': cont++;
+        }
+        nombre ++;
+    }
+    return cont; 
+}
