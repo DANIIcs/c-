@@ -302,3 +302,5 @@ void mostrarArray(int *elemento, int nElementos){
 
 // ejercicio 7 pedir su nombre al usuario y devolver el numero de vocales que hay
 #include <stdlib.h>
+
+
