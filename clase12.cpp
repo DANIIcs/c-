@@ -143,9 +143,22 @@ int main(){
 }
 
 */
-//Asignacion dinamica de atteglos
+//Asignacion dinamica de arreglos
+// es cuando utilizamos el espacio necesario para el programa
+
+// new: reserva el numero de bytes solicitados por la declaracion
+// delete: libera un bloque de bytes reservados con anterioridad
+
+//ejemplo: pedir al usuario n claificaiones y almacenar en un arreglo dinamico
+// Prototipo de funcion 
+void pedirNotas();
+int numCalif;
+
+
 int main(){
  
     getch();
     return 0;
 }
+
+void pedirNotas()
