@@ -218,7 +218,6 @@ void intercambio(float *dirNm1, float *dirNm2){
     *dirNm2= aux;
 
 }
-*/
 
 //Transmision de arreglos
 // ejemplo hallar el maximo elemento de un arreglo
@@ -244,4 +243,58 @@ int hallarMax(int *dirVec, int nElementos){
         }
     }
     return max;
+}
+*/
+
+//ejercicio 5 Ordenar elementos de yn arreglo con punteros
+#include <stdlib.h>
+
+void pedirDatos();
+void ordenarArray(int *, int);
+void mostrarArray(int *, int); //el pimer paramaero sera para  pasarle la posicion del array dinamico, y  otro para enviarle el numero de elemntos del arreglo
+
+int nElementos, *elemento;
+
+int main(){
+    pedirDatos();
+    ordenarArray(elemento,nElementos);
+    mostrarArray(elemento,nElementos);
+
+    delete[] elemento;
+
+    getch();
+    return 0;
+}
+
+void pedirDatos(){
+    cout<<"Digite el numero de elementos del Arreglo: ";cin>>nElementos;
+
+    elemento = new int[nElementos];
+    for(int i=0; i<nElementos; i++){
+        cout<<"Digite un numero["<<i<<"]: ";
+        cin>>*(elemento+i); //es lo mimso que poner elemento[i] pero esto es con punteros
+    }
+
+}
+
+void ordenarArray(int *elemento, int nElementos){
+    int aux;
+    //metodo burble sort 
+    for(int i=0; i<nElementos; i++){
+        for(int j=0; j<nElementos-1;j++){
+            if(*(elemento+j) > *(elemento+j+1)){
+                aux= *(elemento+j);
+                *(elemento+j)= *(elemento+j+1);
+                *(elemento+j+1)= aux;
+            }
+        }
+    }
+}
+
+void mostrarArray(int *elemento, int nElementos){
+
+    cout<<"\n\nMostrando arreglo ordenado: ";
+    for(int i=0; i<nElementos; i++){
+        cout<<*(elemento+i)<<" ";
+    }
 }
