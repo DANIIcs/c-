@@ -244,7 +244,6 @@ int hallarMax(int *dirVec, int nElementos){
     }
     return max;
 }
-*/
 
 //ejercicio 5 Ordenar elementos de yn arreglo con punteros
 #include <stdlib.h>
@@ -298,3 +297,8 @@ void mostrarArray(int *elemento, int nElementos){
         cout<<*(elemento+i)<<" ";
     }
 }
+
+*/
+
+// ejercicio 7 pedir su nombre al usuario y devolver el numero de vocales que hay
+#include <stdlib.h>
