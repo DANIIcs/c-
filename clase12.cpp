@@ -142,7 +142,8 @@ int main(){
     return 0;
 }
 
-*/
+----------------------------------------------------------------------------------------------
+
 //Asignacion dinamica de arreglos
 // es cuando utilizamos el espacio necesario para el programa
 
@@ -150,15 +151,97 @@ int main(){
 // delete: libera un bloque de bytes reservados con anterioridad
 
 //ejemplo: pedir al usuario n claificaiones y almacenar en un arreglo dinamico
+#include <stdlib.h>//libreria para new y delete
 // Prototipo de funcion 
 void pedirNotas();
-int numCalif;
+void mostrarNotas();
+
+int numCalif, *calif;
 
 
 int main(){
- 
+    pedirNotas();
+    mostrarNotas();
+
+    delete[] calif; //para liberar el espacio utilizado
+
     getch();
     return 0;
 }
 
-void pedirNotas()
+void pedirNotas(){
+    cout<<"Digitita el numero de calificaciones: ";cin>>numCalif;
+
+    calif= new int[numCalif]; //Crear el arreglo
+
+    for(int i=0;i<numCalif;i++){
+        cout<<"Ingresa una nota: ";cin>>calif[i];
+    }
+
+}
+
+void mostrarNotas(){
+    cout<<"\nLas notas son las siguientes:\n";
+    for(int i=0; i<numCalif;i++){
+        cout<<calif[i]<<endl;
+    }
+}
+
+
+
+
+//Transmision de Direcciones
+// ejemplo intercambiar el valor de 2 varibales
+void intercambio(float *,float *);//aqui indicamos que estamos guardadnod dos direciones de memoria de tipo flotante
+
+int main(){
+    float num1 = 20.8, num2 = 6.78;
+
+    cout<<"El primer numero: "<<num1<<endl;
+    cout<<"El segundo numero: "<<num2<<endl;
+
+    intercambio(&num1,&num2);//lamada a la funcion intercambio
+    cout<<"\n\nDespues del intercambio \n\n";
+    cout<<"El nuevo valor de num1: "<<num1<<endl;
+    cout<<"El nuevo valor de num2: "<<num2<<endl;
+
+    getch();
+    return 0;
+}
+
+void intercambio(float *dirNm1, float *dirNm2){
+    float aux;//variable auxiliar para poder intercambiar
+
+//intercambiar los valores de las varibales
+    aux= *dirNm1;
+    *dirNm1= *dirNm2;
+    *dirNm2= aux;
+
+}
+*/
+
+//Transmision de arreglos
+// ejemplo hallar el maximo elemento de un arreglo
+
+int hallarMax(int *, int);
+
+int main(){
+    const int nElementos = 5;
+    int numeros[nElementos]={3,5,8,2,1};
+
+    cout<<"El mayor elemento es: "<<hallarMax(numeros,nElementos);
+
+    getch();
+    return 0;
+}
+
+int hallarMax(int *dirVec, int nElementos){
+    int max =0;
+
+    for(int i=0; i<nElementos; i++){
+        if(*(dirVec+i)>max){
+            max = *(dirVec+i);
+        }
+    }
+    return max;
+}
