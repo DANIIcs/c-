@@ -298,7 +298,6 @@ void mostrarArray(int *elemento, int nElementos){
     }
 }
 
-*/
 
 // ejercicio 7 pedir su nombre al usuario y devolver el numero de vocales que hay
 #include <stdlib.h>
@@ -340,4 +339,102 @@ int contandoVocales(char *nombre){
         nombre ++;
     }
     return cont; 
+}
+
+//ejercicio 8 cpntar cada vocal en una palabra
+#include <cstring>
+
+void pedirDatos();
+void contarVocales(char*);
+char palabraUsuario[50];
+
+int main(){
+
+    pedirDatos();
+    contarVocales(palabraUsuario);
+
+    getch();
+    return 0;
+}
+
+void pedirDatos(){
+    cout<<"Digite una plabra o frase: ";
+    cin.getline(palabraUsuario,50);
+
+    strupr(palabraUsuario);
+}
+
+void contarVocales(char *palabra){
+    int contA=0, contE=0, contI=0, contO=0, contU=0;
+
+    while(*palabra){//mientras palabra no sea nulo
+        switch(*palabra){
+            case 'A': contA++;break;
+            case 'E': contE++;break;
+            case 'I': contI++;break;
+            case 'O': contO++;break;
+            case 'U': contU++;break;
+        }
+        palabra++;
+    }
+
+    cout<<"\n\nNumero de veces de la vocal A: "<<contA<<endl;
+    cout<<"Numero de veces de la vocal E: "<<contE<<endl;
+    cout<<"Numero de veces de la vocal I: "<<contI<<endl;
+    cout<<"Numero de veces de la vocal O: "<<contO<<endl;
+    cout<<"Numero de veces de la vocal U: "<<contU<<endl;
+
+}
+*/
+
+//MAtriz dinamica
+
+//ejemplo rellenar una matriz nxm y mostrar su coontenido
+#include <stdlib.h>
+void pedirDatos();
+void mostrarMatriz(int **,int,int);
+
+int **puntero_matriz, nfilas, ncol;
+
+int main(){
+    pedirDatos();
+    mostrarMatriz(puntero_matriz,nfilas,ncol);
+
+    for(int i=0;i<nfilas;i++){
+        delete[] puntero_matriz[i];
+    }
+
+    delete[] puntero_matriz;
+
+    getch();
+    return 0;
+}
+
+void pedirDatos(){
+
+    cout<<"Digite el numero de filas: ";cin>>nfilas;
+    cout<<"Digite el numero de columnas: ";cin>>ncol;
+
+    puntero_matriz=new int*[nfilas];
+    for(int i=0; i<nfilas; i++){
+        puntero_matriz[i] = new int[ncol];
+    }
+
+    cout<<"\nDigitando elementos de la matriz: \n";
+    for (int i=0; i<nfilas;i++){
+        for(int j=0; j<ncol; j++){
+            cout<<"Digite un numero["<<i<<"]["<<j<<"]: ";
+            cin>>*(*(puntero_matriz+i)+j);
+        }
+    }
+}
+
+void mostrarMatriz(int **puntero_matriz, int nfilas, int ncol){
+    cout<<"\n\n Imprimiendo mtriz: \n";
+    for (int i=0; i<nfilas;i++){
+        for(int j=0; j<ncol; j++){
+            cout<<*(*(puntero_matriz+i)+j);
+        }
+        cout<<"\n";
+    }
 }
