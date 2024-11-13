@@ -86,16 +86,92 @@ int main() {
     return 0;
 }
 
-*/
-
 //ejercicio 
 int main(){
 
-    char frase[40];
+    char palabra[40], palabra2[40];
 
+    cout<<"Digite una palabra: ";
+    cin.getline(palabra,30,'\n');
+    cout<<"Digite otra palabra: ";
+    cin.getline(palabra2,30,'\n');
 
-    getch;
+    if (strcmp(palabra, palabra2) == 0) {
+        cout << "Ambas palabras son iguales";
+    }
+    else if(strcmp(palabra, palabra2) > 0) {
+        cout << "Palabra 1 es mayor a palabra 2 alfabeticamente";
+    }
+    else{
+        cout << "Palabra 2 es mayor a palabra 1 alfabeticamente";    
+    }
+
+    getch();
+    return 0;
+}
+
+//funcion strcat para juntar dos cadenas
+
+int main(){
+    char cad1[] = "Esto es una cadena";
+    char cad2[] = "de ejemplo";
+    char cad3[30];
+
+    strcpy(cad3,cad1); //esto es una cadena
+    strcat(cad3,cad2); //esto es una cadena de ejemplo
+
+    cout<<cad3<<endl;
+
+    getch();
     return 0;
 }
 
 
+int main(){
+    char cad1[] = "Hola que tal ";
+    char cad2[20];
+
+    cout<<"Cual es tu nombre: ";
+    cin.getline(cad2,20,'\n');
+
+    strcat(cad1,cad2); //esto es una cadena de ejemplo
+
+    cout<<cad1<<endl;
+
+    getch();
+    return 0;
+}
+
+//funcion strrev para invertir una cadena
+
+int main(){
+    char cad[] = "reconocer";
+
+    strrev(cad);
+
+    cout<<cad<<endl;
+
+    getch();
+    return 0;
+}
+*/
+//ejercicio
+
+int main(){
+    char palabra[20];
+    char palabra2[20];
+
+    cout<<"Dame una palabra: ";
+    cin.getline(palabra,20,'\n');
+
+    strcpy(palabra2, palabra);
+    strrev(palabra2);  // Invirtiendo a palabra2
+
+    if (strcmp(palabra, palabra2) == 0) {
+        cout << palabra << " es una palabra palindroma" <<endl;
+    } else {
+        cout << palabra << " NO es un palíndromo" <<endl;
+    }
+
+    return 0;
+}
